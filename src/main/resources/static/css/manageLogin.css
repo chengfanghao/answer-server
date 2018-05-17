@@ -1,0 +1,13 @@
+#content {
+    display: inline-block;
+    margin-left: 260px;
+    margin-top: 45px;
+}
+
+.delete-usr {
+    text-decoration: underline;
+}
+
+#tableRegion {
+    width: 1100px;
+}

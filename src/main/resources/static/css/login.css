@@ -1,0 +1,183 @@
+body, button, input, select, textarea {
+    font: 9pt/1.5 tahoma, arial, Hiragino Sans GB, \5b8b\4f53, sans-serif;
+}
+
+button, h1, h2, h3, h4, h5, h6, input, select, textarea {
+    font-size: 100%;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+a {
+    color: #666;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #043559;
+    text-decoration: underline;
+}
+
+img {
+    border: 0;
+    vertical-align: top;
+}
+
+textarea {
+    resize: none;
+}
+
+a, button, input, select, textarea {
+    outline: 0;
+}
+
+a, button {
+    cursor: pointer;
+}
+
+button {
+    border: none;
+}
+
+.content {
+    margin-top: 120px;
+    overflow: hidden;
+}
+
+.content .con_left {
+    float: left;
+    padding: 5pt 0 0 230px;
+    width: 181px;
+}
+
+.content .con_left p {
+    padding: 0 0 3px;
+    width: 10pc;
+    color: #040000;
+    font-size: 1pc;
+    font-family: "微软雅黑";
+}
+
+.content .con_left a {
+    padding: 0 0 0 2pc;
+    color: #2f548e;
+    text-decoration: underline;
+    font-size: 1pc;
+    font-family: "微软雅黑";
+}
+
+.content .con_right {
+    float: left;
+    margin: 5px 0 0;
+    width: 28pc;
+    height: 328px;
+    border: 1px solid #dedede;
+    background: #fff;
+}
+
+.content .con_right .con_r_top {
+    padding: 0 0 0 39px;
+    width: 409px;
+    height: 110px;
+    border-top: 8px solid #2e558e;
+}
+
+.content .con_right .con_r_top .left, .content .con_right .con_r_top .right {
+    float: left;
+    padding: 35px 0 0;
+    width: 186px;
+    height: 35px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: "微软雅黑";
+}
+
+.content .con_right .con_r_top .right {
+    border-bottom: 2px solid #dedede;
+    color: #999;
+}
+
+.content .con_right .con_r_top .left {
+    border-bottom: 2px solid #2e558e;
+    color: #333;
+}
+
+.content .con_right ul .user input {
+    margin: 0 0 21px -1px;
+    padding-left: 7px;
+    width: 324px;
+    height: 33px;
+    border: 1px solid #dedede;
+    color: #999;
+    font-size: 14px;
+    font-family: "微软雅黑";
+    line-height: 2pc;
+}
+
+.content .con_right ul .user {
+    padding: 0 0 0 39px;
+}
+
+.content .con_right ul .user .user-icon {
+    float: left;
+    width: 38px;
+    height: 38px;
+    background: url(../img/user-icon.jpg) left top no-repeat;
+    background-size: 38px 38px;
+}
+
+.content .con_right ul .user .mima-icon {
+    float: left;
+    width: 38px;
+    height: 38px;
+    background: url(../img/mima-icon.jpg) left top no-repeat;
+    background-size: 38px 38px;
+}
+
+.content .con_right ul .user .yzmz-icon {
+    float: left;
+    width: 38px;
+    height: 38px;
+    background: url(../img/yzmz-icon.jpg) left top no-repeat;
+    background-size: 38px 38px;
+}
+
+.content .con_right ul p {
+    overflow: hidden;
+    padding: 0 39px 37px;
+    color: #666;
+    font-size: 13px;
+    font-family: "微软雅黑";
+}
+
+.content .con_right ul p .mima {
+    float: left;
+    padding-left: 5px;
+    text-decoration: none;
+}
+
+.content .con_right ul p .zhuce {
+    float: right;
+    text-decoration: none;
+}
+
+.content .con_right ul button {
+    margin: 0 0 0 75pt;
+    width: 250px;
+    height: 44px;
+    background: #2e558e;
+    color: #fff;
+    font-size: 1pc;
+    font-family: "微软雅黑";
+}
+
+.content .con_right ul .con_r_right {
+    display: none;
+}
+
+.content .con_right .con_r_top {
+    *height: 90px;
+}

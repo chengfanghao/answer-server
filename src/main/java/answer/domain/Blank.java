@@ -10,20 +10,25 @@ public class Blank {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
     //试题难度
     private String questionLevel;
     //试题科目
     private String testSubject;
+    //年级
+    private String grade;
+    //出题人账号
+    private String subjectPersonId;
     //试题来源
-    private  String questionSource;
+    private String questionSource;
     //试题状态
-    private  String questionStatus;
+    private String questionStatus;
     //试题题干
-    private  String titleName;
+    private String titleName;
     //试题答案
-    private  String blankAnswer;
+    private String blankAnswer;
     //试题解析
-    private  String questionAnalysis;
+    private String questionAnalysis;
 
     public Integer getId() {
         return id;
@@ -87,5 +92,21 @@ public class Blank {
 
     public void setQuestionAnalysis(String questionAnalysis) {
         this.questionAnalysis = questionAnalysis;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getSubjectPersonId() {
+        return subjectPersonId;
+    }
+
+    public void setSubjectPersonId(String subjectPersonId) {
+        this.subjectPersonId = subjectPersonId;
     }
 }

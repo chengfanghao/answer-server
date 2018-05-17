@@ -5,9 +5,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-// This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
-// CRUD refers Create, Read, Update, Delete
+import java.util.List;
 
 public interface JudgeRepository extends PagingAndSortingRepository<Judge, Integer> {
-    Slice<Judge> findByQuestionStatusAndTestSubject(String questionStatus, String testSubject, Pageable pageable);
+    Slice<Judge> findByQuestionStatusAndTestSubjectAndGrade(String questionStatus, String testSubject, String grade, Pageable pageable);
+
+    List<Judge> findAllByQuestionLevel(String questionLevel);
+
+    List<Judge> findAllByIdIn(List<Integer> var1);
+
+    long countByTestSubjectAndGrade(String testSubject, String grade);
 }

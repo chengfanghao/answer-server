@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>新增试题</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="css/easydropdown.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/manageLogin.css">
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js/jquery.form.js"></script>
+    <script type="text/javascript" src="js/jquery.easydropdown.min.js"></script>
+
+    <script type="text/javascript" src="js/messages_zh.js"></script>
+    <script type="text/javascript" src="js/popper.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+
+    <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
+
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/manageLogin.js"></script>
+</head>
+<body>
+<header>
+    <div id="headerContainer">
+        <div id="ico" class="col-md-3">
+            <span class="cursor-pointor">
+                <span class="glyphicon glyphicon-book"></span>
+                在线考试系统
+            </span>
+        </div>
+        <div id="loginInfo" class="col-md-offset-7 col-md-2">
+            <span class="cursor-pointor">
+                <span class="glyphicon glyphicon-user"></span>
+                <span id="userName">小明</span>
+            </span>
+            &nbsp;&nbsp;|&nbsp;
+            <span class="cursor-pointor">
+                <span id="loginOut">
+                    <span class="glyphicon glyphicon-off"></span>退出
+                </span>
+            </span>
+
+        </div>
+    </div>
+</header>
+
+<div class="navMenubox">
+    <ul class="navMenu">
+        <li>
+            <a href="javascript:;" class="afinve"> <i class="icon-menu3"></i> <span class="">用户管理</span> <span
+                    class="arrow"></span> </a>
+            <ul class="sub-menu">
+                <li><a href="javascript:;"><span>教师管理</span></a></li>
+                <li><a href="javascript:;"><span>学生管理</span></a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div id="content" class="container">
+    <div id="conditionRegion" class="row">
+    </div>
+    <div class="row">
+        <button id="addUser" class="btn btn-primary" data-toggle="modal" data-target="#addTeacherModal">新增教师</button>
+        <button id="loadUser" class="btn btn-primary col-md-offset-8">批量导入</button>
+    </div>
+    <div id="tableRegion" class="table-responsive row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>账号</th>
+                <th>姓名</th>
+                <th>学科</th>
+                <th>年级</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="userContent">
+            </tbody>
+        </table>
+    </div>
+    <div id="pageControl" class="row">
+        <ul class="pagination col-md-offset-3 col-md-6">
+            <li id="first"><a href="javascript:;">&laquo;</a></li>
+            <li id="previous"><a href="javascript:;">&lt;</a></li>
+            <li id="next"><a href="javascript:;">&gt;</a></li>
+            <li id="last"><a href="javascript:;">&raquo;</a></li>
+        </ul>
+    </div>
+</div>
+
+<!--新增教师弹出框-->
+<div class="modal fade" id="addTeacherModal" tabindex="-1" role="dialog" aria-labelledby="labelTitle"
+     aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h6 class="modal-title" id="labelTitle">
+                    新增教师
+                </h6>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="id" class="col-md-2 control-label">账号:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="name" id="id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-md-2 control-label">姓名:</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" name="name" id="name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-md-2 control-label">学科:</label>
+                        <div class="col-md-8">
+                            <select class="form-control" name="subject" id="subject">
+                                <option value="语文">语文</option>
+                                <option value="数学">数学</option>
+                                <option value="英语">英语</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">年级:</label>
+                        <div class="col-md-8">
+                            <select class="form-control" name="grade" id="grade">
+                                <option value="一年级">一年级</option>
+                                <option value="二年级">二年级</option>
+                                <option value="三年级">三年级</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-5 col-md-3">
+                            <button id="teacherSubmit" class="btn btn-primary">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+</body>
+</html>

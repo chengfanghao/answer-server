@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>新增试卷</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="css/easydropdown.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/addExamination.css">
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js/jquery.form.js"></script>
+    <script type="text/javascript" src="js/jquery.easydropdown.min.js"></script>
+
+    <script type="text/javascript" src="js/messages_zh.js"></script>
+    <script type="text/javascript" src="js/popper.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+
+    <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
+
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/addExamination.js"></script>
+</head>
+<body>
+<header>
+    <div id="headerContainer">
+        <div id="ico" class="col-md-3">
+            <span class="cursor-pointor">
+                <span class="glyphicon glyphicon-book"></span>
+                在线考试系统
+            </span>
+        </div>
+        <div id="loginInfo" class="col-md-offset-7 col-md-2">
+            <span class="cursor-pointor">
+                <span class="glyphicon glyphicon-user"></span>
+                <span id="userName">小明</span>
+            </span>
+            &nbsp;&nbsp;|&nbsp;
+            <span class="cursor-pointor">
+                <span id="loginOut">
+                    <span class="glyphicon glyphicon-off"></span>退出
+                </span>
+            </span>
+
+        </div>
+    </div>
+</header>
+
+<div class="navMenubox">
+    <ul class="navMenu">
+        <li>
+            <a href="javascript:;" class="afinve">
+                <i class="icon-menu1"></i>
+                <span class="">题库管理</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li><a href="./addExaminationPaper.html"><span>新增试卷</span></a></li>
+                <li><a href="./addQuestion.html"><span>新增试题</span></a></li>
+                <li><a href="./listExaminationPaper.html"><span>试卷列表</span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="afinve">
+                <i class="icon-menu2"></i>
+                <span class="">成绩管理</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li><a href="javascript:;"><span>学生成绩</span></a></li>
+                <li><a href="javascript:;"><span>阅卷记录</span></a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div id="content" class="container">
+    <div id="conditionRegion" class="row">
+        <div class="form-group info-control-group col-md-4">
+            <label for="examinationName">试卷名称:</label>
+            <input type="text" class="form-control info-input" name="examinationName" id="examinationName"
+                   placeholder="2018年模拟考">
+        </div>
+        <div class="form-group info-control-group col-md-offset-2 col-md-4">
+            <label>考试时长:</label>
+            <select class="dropdown" name="examinationTime" id="examinationTime">
+                <option value="90分钟">90分钟</option>
+                <option value="120分钟">120分钟</option>
+                <option value="150分钟">150分钟</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <button id="customTest" class="btn btn-primary" data-toggle="modal" data-target="#customTestModal">定制试卷</button>
+        <button id="genernateTest" class="btn btn-primary col-md-offset-7">生成试卷</button>
+    </div>
+    <div id="tableRegion" class="table-responsive row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>
+                    <select id="questionType">
+                        <option value="选择">选择</option>
+                        <option value="填空">填空</option>
+                        <option value="判断">判断</option>
+                        <option value="问答">问答</option>
+                    </select>
+                </th>
+                <th>难度</th>
+                <th>题干</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="questionContent">
+            </tbody>
+        </table>
+    </div>
+    <div id="pageControl" class="row">
+        <ul class="pagination col-md-offset-3 col-md-6">
+            <li id="first"><a href="javascript:;">&laquo;</a></li>
+            <li id="previous"><a href="javascript:;">&lt;</a></li>
+            <li id="next"><a href="javascript:;">&gt;</a></li>
+            <li id="last"><a href="javascript:;">&raquo;</a></li>
+        </ul>
+    </div>
+</div>
+
+<!--试题详情弹出框-->
+<div class="modal fade" id="questionDetailModal" tabindex="-1" role="dialog" aria-labelledby="labelTitle"
+     aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h6 class="modal-title" id="labelTitle">
+                    试题详情
+                </h6>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tbody id="questionDetailContent">
+                    </tbody>
+                </table>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--定制试题弹出框-->
+<div class="modal fade" id="customTestModal" tabindex="-1" role="dialog" aria-labelledby="customTitle"
+     aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h6 class="modal-title" id="customTitle">
+                    定制试卷
+                </h6>
+            </div>
+            <div class="modal-body" id="customTestContent">
+                <div class="row modal-row">
+                    <div class="form-group info-control-group col-md-5">
+                        <label for="unit">单元:</label>
+                        <input type="text" class="form-control info-input" id="unit">
+                    </div>
+                    <div class="form-group info-control-group col-md-offset-2 col-md-5">
+                        <label for="point">知识点:</label>
+                        <input type="text" class="form-control info-input" id="point">
+                    </div>
+                </div>
+                <h5>选择</h5>
+                <div class="row modal-row">
+                    <div class="form-group info-control-group col-md-4">
+                        <label for="selectLevel1">容易题数:</label>
+                        <input type="number" class="form-control number-input" placeholder="0" id="selectLevel1">
+                    </div>
+                    <div class="form-group info-control-group col-md-4">
+                        <label for="selectLevel2">常规题数:</label>
+                        <input type="number" class="form-control number-input" placeholder="0" id="selectLevel2">
+                    </div>
+                    <div class="form-group info-control-group col-md-4">
+                        <label for="selectLevel3">困难题数:</label>
+                        <input type="number" class="form-control number-input" placeholder="0" id="selectLevel3">
+                    </div>
+                </div>
+                <h5>填空</h5>
+                <div class="row modal-row">
+                    <div class="form-group info-control-group col-md-4">
+                        <label for="blankLevel1">容易题数:</label>
+                        <input type="number" class="form-control number-input" placeholder="0" id="blankLevel1">
+                    </div>
+                    <div class="form-group info-control-group col-md-4">
+                        <label for="blankLevel2">常规题数:</label>
+                        <input type="number" class="form-control number-input" placeholder="0" id="blankLevel2">
+                    </div>
+                    <div class="form-group info-control-group col-md-4">
+                        <label for="blankLevel3">困难题数:</label>
+                        <input type="number" class="form-control number-input" placeholder="0" id="blankLevel3">
+                    </div>
+                </div>
+                <h5>判断</h5>
+                <div class="row modal-row">
+                    <div class="form-group info-control-group col-md-4">
+                        <label for="judgeLevel1">容易题数:</label>
+                        <input type="number" class="form-control number-input" placeholder="0" id="judgeLevel1">
+                    </div>
+                    <div class="form-group info-control-group col-md-4">
+                        <label for="judgeLevel1">常规题数:</label>
+                        <input type="number" class="form-control number-input" placeholder="0" id="judgeLevel2">
+                    </div>
+                    <div class="form-group info-control-group col-md-4">
+                        <label for="judgeLevel3">困难题数:</label>
+                        <input type="number" class="form-control number-input" placeholder="0" id="judgeLevel3">
+                    </div>
+                </div>
+                <h5>问答</h5>
+                <div class="row modal-row">
+                    <div class="form-group info-control-group col-md-4">
+                        <label for="essayLevel1">容易题数:</label>
+                        <input type="number" class="form-control number-input" placeholder="0" id="essayLevel1">
+                    </div>
+                    <div class="form-group info-control-group col-md-4">
+                        <label for="essayLevel2">常规题数:</label>
+                        <input type="number" class="form-control number-input" placeholder="0" id="essayLevel2">
+                    </div>
+                    <div class="form-group info-control-group col-md-4">
+                        <label for="essayLevel3">困难题数:</label>
+                        <input type="number" class="form-control number-input" placeholder="0" id="essayLevel3">
+                    </div>
+                </div>
+                <div class="row modal-row">
+                    <button id="generateCustomTest" class="btn btn-primary col-md-offset-5">生成试卷</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+</body>
+</html>

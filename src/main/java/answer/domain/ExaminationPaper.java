@@ -16,8 +16,15 @@ public class ExaminationPaper {
 
     //试题在相应类型表中的id
     private Integer id;
+
     //试题的中文类型
     private String questionType;
+
+    //学科
+    private String subject;
+
+    //年级
+    private String grade;
 
     public Integer getPaperId() {
         return paperId;
@@ -57,6 +64,22 @@ public class ExaminationPaper {
 
     public void setQuestionType(String questionType) {
         this.questionType = questionType;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 
     @Override

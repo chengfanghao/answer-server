@@ -1,7 +1,9 @@
 package answer.controller;
 
 import answer.domain.Essay;
+import answer.domain.Teacher;
 import answer.repository.EssayRepository;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -11,7 +13,6 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping(path="/essay")
-@CrossOrigin
 public class EssayController {
     @Autowired
     private EssayRepository essayRepository;
@@ -34,8 +35,10 @@ public class EssayController {
     }
 
     @GetMapping(path="/getCount")
-    public @ResponseBody long getCount(){
-        return  essayRepository.count();
+    @ResponseBody
+    public long getCount(HttpServletRequest httpServletRequest) {
+        Teacher teacher = (Teacher) httpServletRequest.getSession().getAttribute("teacher");
+        return essayRepository.countByTestSubjectAndGrade(teacher.getSubject(), teacher.getGrade());
     }
 
     @DeleteMapping("/{id}")
@@ -44,7 +47,8 @@ public class EssayController {
     }
 
     @GetMapping(path="/getPage{pageNumber}")
-    public @ResponseBody Iterable<Essay> getPageData(@PathVariable int pageNumber){
-        return essayRepository.findByQuestionStatusAndTestSubject("开放","语文",new PageRequest(pageNumber,7));
+    public @ResponseBody Iterable<Essay> getPageData(HttpServletRequest httpServletRequest,@PathVariable int pageNumber){
+        Teacher teacher = (Teacher) httpServletRequest.getSession().getAttribute("teacher");
+        return essayRepository.findByQuestionStatusAndTestSubjectAndGrade("开放",teacher.getSubject(), teacher.getGrade(),new PageRequest(pageNumber,7));
     }
 }

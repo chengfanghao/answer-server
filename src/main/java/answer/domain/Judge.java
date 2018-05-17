@@ -14,6 +14,10 @@ public class Judge {
     private String questionLevel;
     //试题科目
     private String testSubject;
+    //年级
+    private String grade;
+    //出题人账号
+    private String subjectPersonId;
     //试题来源
     private String questionSource;
     //试题状态
@@ -87,5 +91,21 @@ public class Judge {
 
     public void setQuestionAnalysis(String questionAnalysis) {
         this.questionAnalysis = questionAnalysis;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getSubjectPersonId() {
+        return subjectPersonId;
+    }
+
+    public void setSubjectPersonId(String subjectPersonId) {
+        this.subjectPersonId = subjectPersonId;
     }
 }
