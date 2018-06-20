@@ -9,6 +9,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/teacher")
@@ -19,7 +20,7 @@ public class TeacherController {
     @PostMapping(path = {"/login"}, consumes = "application/json")
     @ResponseBody
     public String addOrUpdateTeacher(HttpServletRequest httpServletRequest, @RequestBody Teacher teacher) {
-        Teacher dbTeacher = teacherRepository.findById(teacher.getId());
+        Teacher dbTeacher = teacherRepository.findById(teacher.getId()).get();
 
         if (dbTeacher == null || !dbTeacher.getPassword().equals(teacher.getPassword())) {
             return "fail";

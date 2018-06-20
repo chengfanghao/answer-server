@@ -181,3 +181,7 @@ button {
 .content .con_right .con_r_top {
     *height: 90px;
 }
+
+#teacherLogin:focus {
+    background-color: lightblue;
+}

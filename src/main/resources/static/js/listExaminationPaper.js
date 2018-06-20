@@ -1,18 +1,4 @@
 $(document).ready(function () {
-    var config = {
-        postPath: {
-            "选择题": "singleChoice",
-            "填空题": "blank",
-            "判断题": "judge",
-            "问答题": "essay"
-        },
-        paperInfo: {
-            paperName: "",
-            time: 120
-        },
-        baseUrl: "http://localhost:8080"
-    };
-
     var teacher = JSON.parse(sessionStorage.teacher);
     $('#userName').html(teacher.name);
 
@@ -38,48 +24,6 @@ $(document).ready(function () {
         }
     });
 
-    //定时器
-    function timer(intDiff) {
-        //无延迟
-        var day = 0,
-            hour = 0,
-            minute = 0,
-            second = 0;
-        if (intDiff > 0) {
-            day = Math.floor(intDiff / (60 * 60 * 24));
-            hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
-            minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
-            second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
-        }
-        if (minute <= 9) minute = '0' + minute;
-        if (second <= 9) second = '0' + second;
-        $('#hourShow').html('<s id="h"></s>' + hour + ':');
-        $('#minuteShow').html('<s></s>' + minute + ':');
-        $('#secondShow').html('<s></s>' + second);
-        intDiff--;
-
-        $("#timer").css("display", "block");
-
-        window.setInterval(function () {
-            var day = 0,
-                hour = 0,
-                minute = 0,
-                second = 0;
-            if (intDiff > 0) {
-                day = Math.floor(intDiff / (60 * 60 * 24));
-                hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
-                minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
-                second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
-            }
-            if (minute <= 9) minute = '0' + minute;
-            if (second <= 9) second = '0' + second;
-            $('#hourShow').html('<s id="h"></s>' + hour + ':');
-            $('#minuteShow').html('<s></s>' + minute + ':');
-            $('#secondShow').html('<s></s>' + second);
-            intDiff--;
-        }, 1000);
-    }
-
     //加载试卷列表
     $.get(`${config.baseUrl}/examinationPaper/allExaminationPaper`, function (data, status) {
         console.log(data);
@@ -89,7 +33,10 @@ $(document).ready(function () {
                 <tr>
                     <td>${data[examinationPaper][0]}</td>
                     <td>${data[examinationPaper][1]}</td>
-                    <td><a class="exam-operations" data-examname="${data[examinationPaper][0]}" data-time="${data[examinationPaper][1]}">开始答题</a></td>
+                    <td>
+                        <a class="exam-operations" data-examname="${data[examinationPaper][0]}" data-time="${data[examinationPaper][1]}">查看</a>
+                        &nbsp;&nbsp;<a class="print-operations" data-examname="${data[examinationPaper][0]}">打印</a>
+                    </td>
                 </tr>
             `;
         }
@@ -193,9 +140,141 @@ $(document).ready(function () {
 
                 //显示试卷
                 $("#paperForm").css("display", "block");
+            });
+        });
 
-                //计时开始
-                timer((config.paperInfo.time) * 60);
+        //绑定打印事件
+        $('.print-operations').click(function () {
+            var name = $(this).data("examname");
+            $.get(`${config.baseUrl}/examinationPaper/getPaper/${name}`, function (data, status) {
+                console.dir(data);
+
+                var singleChoices = data[0],
+                    blanks = data[1],
+                    judges = data[2],
+                    essays = data[3];
+
+                //填充选择题,分三种形式，选项最大长度：10字符，一行4个；20字符，一行2个；其他，一行一个
+                var choiceContent = ``;
+                for (var i = 0; i < singleChoices.length; i++) {
+                    var maxLength = Math.max(singleChoices[i].choiceA.length, singleChoices[i].choiceB.length,
+                        singleChoices[i].choiceC.length, singleChoices[i].choiceD.length);
+                    if (maxLength <= 10) {
+                        choiceContent += `<div>
+                        <p>${i + 1}.${singleChoices[i].titleName}</p>
+                        <p><span class="col-md-3"><input type="radio" name="singleChoice${i + 1}" required>A.${singleChoices[i].choiceA}</span>
+                        <span class="col-md-3"><input type="radio" name="singleChoice${i + 1}" required>B.${singleChoices[i].choiceB}</span>
+                        <span class="col-md-3"><input type="radio" name="singleChoice${i + 1}" required>C.${singleChoices[i].choiceC}</span>
+                        <span class="col-md-3"><input type="radio" name="singleChoice${i + 1}" required>D.${singleChoices[i].choiceD}</span>
+                        </p></div><br>`;
+                    } else if (maxLength <= 20) {
+                        choiceContent += `<div>
+                        <p>${i + 1}.${singleChoices[i].titleName}</p>
+                        <p><span class="col-md-6"><input type="radio" name="singleChoice${i + 1}" required>A.${singleChoices[i].choiceA}</span>
+                        <span class="col-md-6"><input type="radio" name="singleChoice${i + 1}" required>B.${singleChoices[i].choiceB}</span></p>
+                        <p><span class="col-md-6"><input type="radio" name="singleChoice${i + 1}" required>C.${singleChoices[i].choiceC}</span>
+                        <span class="col-md-6"><input type="radio" name="singleChoice${i + 1}" required>D.${singleChoices[i].choiceD}</span></p>
+                        </div><br>`;
+                    } else {
+                        choiceContent += `<div>
+                        <p>${i + 1}.${singleChoices[i].titleName}</p>
+                        <p><input type="radio" name="singleChoice${i + 1}" required>A.${singleChoices[i].choiceA}</p>
+                        <p><input type="radio" name="singleChoice${i + 1}" required>B.${singleChoices[i].choiceB}</p>
+                        <p><input type="radio" name="singleChoice${i + 1}" required>C.${singleChoices[i].choiceC}</p>
+                        <p><input type="radio" name="singleChoice${i + 1}" required>D.${singleChoices[i].choiceD}</p>
+                        </div><br>`;
+                    }
+                }
+
+                //填充填空题
+                var blankContent = ``;
+
+                for (var i = 0; i < blanks.length; i++) {
+                    var titleNameArr = (blanks[i].titleName).split('_');
+                    blankContent += `<div><p><span>${i + 1}.</span>`;
+                    for (var subName in titleNameArr) {
+                        //判断不为空
+                        if (titleNameArr[subName].length > 0) {
+                            if (subName == titleNameArr.length - 1) {
+                                blankContent += `<span>${titleNameArr[subName]}</span>`;
+                            } else {
+                                blankContent += `<span>${titleNameArr[subName]}<input class="blank-input" name="blank${i}-${subName}"></span>`;
+                            }
+
+                        }
+                    }
+                    blankContent += `</p></div><br>`;
+                }
+
+                //填空题输入框根据文字变长
+                /*$('.blank-input').bind('input propertychange', function () {
+                    var textLength = $(this).val().length;//获取当前文本框的长度
+                    var currentWidth = parseInt(textLength) * 18;//18是字符的大小
+                    $(this).css("width", currentWidth + "px");
+                });*/
+
+                //填充判断题
+                var judgeContent = ``;
+                for (var i = 0; i < judges.length; i++) {
+                    judgeContent += `<div>
+                    <p>${i + 1}.${judges[i].titleName}</p>
+                    <span><input type="radio" name="judge${i + 1}" required>正确</span>
+                    <span><input type="radio" name="judge${i + 1}" style="margin-left: 20px" required>错误</span>
+                    </div><br>`;
+                }
+
+                //填充问答题
+                var essayContent = ``;
+                for (var i = 0; i < essays.length; i++) {
+                    essayContent += `<div>
+                    <p>${i + 1}.${essays[i].titleName}</p>
+                    <textarea rows="5" required></textarea>
+                    </div><br>`;
+                }
+
+                var printBody = `
+                    <form>
+                        <section>
+                            <h4>
+                                一、选择题
+                            </h4>
+                            <div id="singleChoiceRegion">
+                                ${choiceContent}
+                            </div>
+                        </section>
+            
+                        <section>
+                            <h4>
+                                二、填空题
+                            </h4>
+                            <div id="blankRegion">
+                                ${blankContent}
+                            </div>
+                        </section>
+            
+                        <section>
+                            <h4>
+                                三、判断题
+                            </h4>
+                            <div id="judgeRegion">
+                                ${judgeContent}
+                            </div>
+                        </section>
+            
+                        <section>
+                            <h4>
+                                四、问答题
+                            </h4>
+                            <div id="essayRegion">
+                                ${essayContent}
+                            </div>
+                        </section>
+                    </form>
+                `;
+                var oldBody = $('body').html();
+                $('body').html(printBody);
+                window.print();
+                window.location.reload();
             });
         });
     });

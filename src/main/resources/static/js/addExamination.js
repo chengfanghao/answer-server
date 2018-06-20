@@ -1,36 +1,4 @@
 $(document).ready(function () {
-    var config = {
-        questionType: {
-            name: "选择",
-            url: "singleChoice"
-        },
-        pageCount: -1,
-        baseUrl: "http://localhost:8080",
-        questionTypeUrl: {
-            "选择": "singleChoice",
-            "填空": "blank",
-            "判断": "judge",
-            "问答": "essay"
-        },
-        questionDetail: {
-            "questionLevel": "试题难度",
-            "testSubject": "试题科目",
-            "questionSource": "试题来源",
-            "questionStatus": "试题状态",
-            "grade": "年级",
-            "subjectPersonId": "出题人",
-            "titleName": "试题题干",
-            "blankAnswer": "试题答案",
-            "questionAnalysis": "试题解析",
-            "judgeAnswer": "试题答案",
-            "choiceAnswer": "试题答案",
-            "choiceA": "A",
-            "choiceB": "B",
-            "choiceC": "C",
-            "choiceD": "D"
-        }
-    };
-
     var teacher = null;
     //设置登录信息
     if (!sessionStorage.teacher) {

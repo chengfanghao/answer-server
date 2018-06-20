@@ -115,8 +115,10 @@
 
         <div id="requestTitle" class="form-group">
             <label class="textarea-lable" for="titleName">试题题干:</label>
+            <i id="uploadImg" class="cursor-pointor glyphicon glyphicon-camera" title="请上传题目图片!"></i>
             <textarea class="form-control cfh-inline-form-control" rows="5" name="titleName" id="titleName"
-                      required="required"></textarea>
+                      placeholder="请输入题目或点击左上方图标上传题目图片!" required="required"></textarea>
+            <input id="imgFile" type="file" style="display: none">
         </div>
 
         <!--单选题-->

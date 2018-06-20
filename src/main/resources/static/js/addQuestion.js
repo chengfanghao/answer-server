@@ -1,14 +1,4 @@
 $(document).ready(function () {
-    var config = {
-        postPath: {
-            "选择题": "singleChoice",
-            "填空题": "blank",
-            "判断题": "judge",
-            "问答题": "essay"
-        },
-        baseUrl: "http://localhost:8080"
-    };
-
     //设置登录信息
     var teacher = JSON.parse(sessionStorage.teacher);
     $('#userName').html(teacher.name);
@@ -170,6 +160,50 @@ $(document).ready(function () {
                 </div>`);
             //$("#judegeRequst").css("display","block");
         }
+    });
+
+    //识别图片
+    $("#uploadImg").click(function () {
+
+        $("#imgFile").click();
+    });
+
+    $("#imgFile").change(function (e) {
+        var formData = new FormData();
+        formData.append("appid", 1256925398);
+        formData.append("image", $("#imgFile").get(0).files[0], $("#imgFile").val());
+
+        $.ajax({
+            url: `http://recognition.image.myqcloud.com/ocr/handwriting`,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: formData,
+            headers: {
+                "Authorization": "mQbgYTLbByoC+j4K3fqTIoh/Y4JhPTEyNTY5MjUzOTgmYj0maz1BS0lENjlGZHlCeTRsSXVQbFN2UmVKcGJHcEdUVkwxYU12T2gmdD0xNTI4OTQxNDQxJmU9MTUzMTUzMzQ0MSZyPTE1ODk2MzMxMTQ="
+            },
+            dataType: "json",
+            beforeSend: function () {
+                $("#titleName").val("");
+                $("#titleName").attr("placeHolder", "正在识别中，请稍等...");
+            },
+            error: function (data) {
+                console.log("失败" + data);
+            },
+            success: function (result) {
+                console.dir(result);
+                var text = "",
+                    dataArr = result.data.items;
+
+                for (var i = 0; i < dataArr.length; i++) {
+                    text += dataArr[i].itemstring;
+                }
+                console.log(text);
+                $("#titleName").val(text);
+                $("#titleName").attr("placeHolder", "");
+                $("#imgFile").val("");
+            }
+        });
     });
 
 });

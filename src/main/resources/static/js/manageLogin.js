@@ -1,9 +1,4 @@
 $(document).ready(function () {
-    var config = {
-        baseUrl: "http://localhost:8080",
-        pageCount: 0
-    };
-
     var manager = null;
     //设置登录信息
     if (!sessionStorage.manager) {

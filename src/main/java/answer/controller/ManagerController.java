@@ -17,7 +17,7 @@ public class ManagerController {
     @PostMapping(path = {"/login"}, consumes = "application/json")
     @ResponseBody
     public String addOrUpdateManager(HttpServletRequest httpServletRequest, @RequestBody Manager manager) {
-        Manager dbManager = managerRepository.findById(manager.getId());
+        Manager dbManager = managerRepository.findById(manager.getId()).get();
 
         if (dbManager == null || !dbManager.getPassword().equals(manager.getPassword())) {
             return "fail";
